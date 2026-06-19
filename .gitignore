@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Generated artifacts (regenerate with the scripts)
+data/*.json
+data/*.csv
+outputs/*.json
+outputs/*.md
+
+# Keep the empty dirs tracked
+!data/.gitkeep
+!outputs/.gitkeep
+
+# Model / HF cache
+.cache/
+*.bin
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

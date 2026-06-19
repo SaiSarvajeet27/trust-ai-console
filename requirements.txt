@@ -1,0 +1,19 @@
+# Core data generation
+Faker>=24.0.0
+pandas>=2.0.0
+
+# Real confidence scores (Hugging Face zero-shot classification)
+# torch is a large download; CPU-only is fine for this project.
+transformers>=4.38.0
+torch>=2.0.0
+
+# Explainability (plain-language "Ask Why" factors)
+lime>=0.2.0.1
+numpy>=1.24.0
+
+# API layer that serves the pipeline outputs to the React frontend
+fastapi>=0.110.0
+uvicorn[standard]>=0.29.0
+
+# Optional: SHAP is an alternative explainer. Uncomment if you prefer it.
+# shap>=0.44.0
