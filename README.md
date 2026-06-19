@@ -1,19 +1,99 @@
-# Trust-AI Backend — Data & Model Pipeline
+# Trust-AI Console
 
-Backend data pipeline for the Dell hackathon project **"Designing Transparent &
-Trustworthy AI Agent Interfaces."**
+Dell hackathon project — **"Designing Transparent & Trustworthy AI Agent Interfaces."**
 
-There is **no live server** here. The Figma prototype is the product; this repo
-produces the *authentic content* that fills it and the *evidence* that the
-confidence indicators come from a real model. It outputs:
+An IT-admin console where an AI agent recommends actions on a device fleet, but every recommendation is **legible and accountable**: it shows its reasoning, how confident it is and why, what data it's based on, where it might be wrong, and gives the admin full control (approve / override / escalate).
 
-- a self-consistent synthetic device fleet,
-- **real** confidence scores from a pretrained Hugging Face model, mapped to
-  plain-language bands,
-- plain-language "Ask Why" factors derived from LIME explainability,
-- fully assembled recommendation objects covering all five transparency
-  elements, plus an activity log,
-- a **content pack** the designers copy-paste straight into Figma frames.
+The project has three parts:
+
+1. **Pipeline** (`src/`, `scripts/`) — generates a synthetic device fleet and produces real model-backed content (confidence + explanations) in plain language.
+2. **API** (`api.py`) — a FastAPI layer that serves that content to the UI and records the admin's decisions.
+3. **Frontend** (`frontend/`) — a React app that renders the screens. (The judged UI is designed in **Figma**; this React app is the working implementation of that design.)
+
+---
+
+## Quick start (for teammates)
+
+```bash
+git clone https://github.com/SaiSarvajeet27/trust-ai-console.git
+cd trust-ai-console
+```
+
+You need **Python 3.10+** and **Node.js 18+**. Then run the two parts.
+
+### 1. Backend (pipeline + API) — terminal A
+
+```bash
+python -m venv .venv
+.venv\Scripts\activate            # Windows
+# source .venv/bin/activate       # macOS / Linux
+
+pip install -r requirements.txt
+
+python run_all.py --offline       # generate the data (fast, no model download)
+uvicorn api:app --reload --port 8000
+```
+
+Leave that running. Check it works: open http://localhost:8000/api/health (should report the recommendations loaded) or http://localhost:8000/docs.
+
+### 2. Frontend — terminal B
+
+```bash
+cd frontend
+npm install
+npm run dev                       # opens http://localhost:5173
+```
+
+Open http://localhost:5173 and you'll see the console with live data.
+
+> **Tip:** `--offline` uses predefined scores so nobody is blocked by a slow download. Run `python run_all.py` (without `--offline`) at least once to get genuine Hugging Face model scores for the demo/deck.
+
+---
+
+## Project layout
+
+```
+trust-ai-console/
+├── run_all.py                  # run the whole pipeline in order
+├── api.py                      # FastAPI layer (serves data, records decisions)
+├── requirements.txt
+├── README.md
+├── src/
+│   ├── config.py               # paths, fleet size, thresholds, model name
+│   ├── schema.py               # the recommendation schema (the data contract)
+│   ├── scenarios.py            # the 3 scenarios: authored content + model params
+│   ├── fleet.py                # Faker fleet generation (exact-count cohorts)
+│   ├── confidence.py           # zero-shot classifier + score→band mapping
+│   ├── explain.py              # LIME → plain-language factors (with fallback)
+│   └── plain_language.py       # jargon/number guardrail
+├── scripts/
+│   ├── 01_generate_fleet.py
+│   ├── 02_classify_alerts.py
+│   ├── 03_explain_alerts.py
+│   ├── 04_assemble_recommendations.py
+│   ├── 05_build_activity_log.py
+│   └── 06_export_content_pack.py
+├── frontend/                   # React + Vite + Tailwind app
+│   ├── package.json
+│   └── src/
+│       ├── App.jsx
+│       ├── api.js              # fetch layer -> talks to api.py
+│       └── components/         # ConfidenceBadge, RecommendationCard, etc.
+├── data/                       # generated inputs (gitignored)
+└── outputs/                    # final artifacts for the designers (gitignored)
+```
+
+---
+
+## How it fits together
+
+```
+Pipeline (scripts/)  ->  outputs/*.json  ->  FastAPI (api.py)  ->  React (frontend/)  ->  IT admin
+                                                   ^                                          |
+                                                   |________ decision (approve/override) _____|
+```
+
+The pipeline builds the content, the API serves it and records decisions, the React app renders it, and the admin's decision loops back into the API and the activity log.
 
 ---
 
@@ -27,125 +107,38 @@ confidence indicators come from a real model. It outputs:
 | 4. Known limitations | authored per scenario, shown where the agent is at the edge of competence |
 | 5. Human-in-the-loop controls | `src/schema.py` (Approve / Override / Ask Why / See Alternatives / Escalate) |
 
-The raw model score is recorded for your slides/README **only** — it never
-appears in any user-facing string. `src/plain_language.py` scans the output and
-warns if a number or jargon term leaks into a UI field.
+The raw model score is recorded for the slides/README **only** — it never appears in any user-facing string. `src/plain_language.py` scans the output and warns if a number or jargon term leaks into a UI field.
 
 ---
 
-## Project layout
+## Running the pipeline step by step
 
-```
-trust-ai-backend/
-├── run_all.py                  # run the whole pipeline in order
-├── requirements.txt
-├── README.md
-├── src/
-│   ├── config.py               # paths, fleet size, thresholds, model name
-│   ├── schema.py               # the recommendation schema (the designer contract)
-│   ├── scenarios.py            # the 3 scenarios: authored content + model params
-│   ├── fleet.py                # Faker fleet generation (exact-count cohorts)
-│   ├── confidence.py           # zero-shot classifier + score→band mapping
-│   ├── explain.py              # LIME → plain-language factors (with fallback)
-│   └── plain_language.py       # jargon/number guardrail
-├── scripts/
-│   ├── 01_generate_fleet.py
-│   ├── 02_classify_alerts.py
-│   ├── 03_explain_alerts.py
-│   ├── 04_assemble_recommendations.py
-│   ├── 05_build_activity_log.py
-│   └── 06_export_content_pack.py
-├── data/                       # generated inputs (gitignored)
-└── outputs/                    # final artifacts for the designers (gitignored)
-```
+`run_all.py` runs all of these in order. To run them individually (steps 02 and 03 accept `--offline`):
+
+| Step | Script | Produces |
+|---|---|---|
+| 1 | `01_generate_fleet.py` | `data/fleet.json`, `data/events.csv` — 500 devices, exact cohorts so the narrative counts are true |
+| 2 | `02_classify_alerts.py` | `data/confidence.json` — real score per scenario → band + driver |
+| 3 | `03_explain_alerts.py` | `data/explanations.json` — plain-language factors for "Ask Why" |
+| 4 | `04_assemble_recommendations.py` | `outputs/recommendations.json` — full objects; runs the jargon guardrail |
+| 5 | `05_build_activity_log.py` | `outputs/activity_log.json` — audit trail + a filtered (security) state |
+| 6 | `06_export_content_pack.py` | `outputs/content_pack.md` / `.json` — the designer handoff |
 
 ---
 
-## Setup
+## API endpoints (`api.py`)
 
-Requires Python 3.10+.
-
-```bash
-# 1. Create and activate a virtual environment
-python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
-
-# 2. Install dependencies
-pip install -r requirements.txt
-```
-
-> **Note on size/speed:** `torch` + the `facebook/bart-large-mnli` model are a
-> large first-time download and run slowly on CPU. If you're on hackathon wifi
-> or short on time, use the **`--offline`** flag (below) — it produces the same
-> shaped output using predefined scores and authored factors, so the designers
-> are never blocked. Run the real model at least once to capture genuine scores
-> for your deck.
-
----
-
-## How to run (two ways)
-
-### Option A — one command
-
-```bash
-python run_all.py              # real Hugging Face model
-# or
-python run_all.py --offline    # fast: predefined scores + authored factors
-```
-
-### Option B — step by step (recommended the first time)
-
-Run from the repo root. Steps 02 and 03 accept `--offline`.
-
-```bash
-python scripts/01_generate_fleet.py
-python scripts/02_classify_alerts.py            # add --offline to skip the model
-python scripts/03_explain_alerts.py             # add --offline to skip LIME
-python scripts/04_assemble_recommendations.py
-python scripts/05_build_activity_log.py
-python scripts/06_export_content_pack.py
-```
-
-What each step does and produces:
-
-| Step | Script | Produces | Notes |
-|---|---|---|---|
-| 1 | `01_generate_fleet.py` | `data/fleet.json`, `data/events.csv` | 500 devices; exact cohorts so narrative counts are true |
-| 2 | `02_classify_alerts.py` | `data/confidence.json` | real score per scenario → band + driver |
-| 3 | `03_explain_alerts.py` | `data/explanations.json` | plain-language factors for "Ask Why" |
-| 4 | `04_assemble_recommendations.py` | `outputs/recommendations.json` | full objects; runs the jargon guardrail |
-| 5 | `05_build_activity_log.py` | `outputs/activity_log.json` | audit trail + a filtered (security) state |
-| 6 | `06_export_content_pack.py` | `outputs/content_pack.md`, `outputs/content_pack.json` | the designer handoff |
+| Method | Path | Returns |
+|---|---|---|
+| GET | `/api/recommendations` | all recommendation objects |
+| GET | `/api/recommendations/{id}` | one recommendation |
+| POST | `/api/recommendations/{id}/decision` | record Approve/Override/Escalate, append to log |
+| GET | `/api/activity-log` | audit trail (`all` + `filtered_security`) |
+| GET | `/api/fleet/summary` | dashboard header stats |
+| GET | `/api/health` | liveness check |
 
 ---
 
 ## The deliverable for the designers
 
-After a full run, hand over **`outputs/content_pack.md`**. It contains every
-string for the frames — per recommendation: reasoning steps, confidence band +
-driver, "Ask Why" factors, data sources, limitations, alternatives, and the
-control bar — followed by the activity-log table and its filtered state.
-
-`outputs/recommendations.json` is the structured version if anyone wants to
-import it programmatically.
-
----
-
-## Customizing
-
-- **Change thresholds / fleet size / model:** `src/config.py`.
-- **Add or edit a scenario:** add an entry to `SCENARIOS` in `src/scenarios.py`
-  (and an `OFFLINE_SCORES` value). Use `{similar_count}`, `{patch_count}`,
-  `{finance_count}` in any string and it will be filled with the real number.
-- **Swap LIME for SHAP:** uncomment `shap` in `requirements.txt` and add a SHAP
-  branch in `src/explain.py` mirroring `explain_with_lime`.
-
----
-
-## For your slides (Transparency 25% / Innovation 15%)
-
-Pitch the pipeline as: **Faker fleet → real Hugging Face zero-shot classifier →
-LIME explainability → human translation into plain language.** The honest line
-that earns points: *"our confidence labels are produced by a real model, then
-deliberately translated into plain language — we never show a raw number or a
-SHAP plot to the admin."*
+After a full run, hand over **`outputs/content_pack.md`** — every string for the Figma frames: per recommendation the reasoning steps, confidence band + driver, "Ask Why" factors, data sources, limitations, alternatives, and the control bar, followed by the activity-log table and its filtered state. The React components in `frontend/src/components/` are a plain, data-wired implementation to restyle to match the Figma design.
