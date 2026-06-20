@@ -8,7 +8,7 @@ The project has three parts:
 
 1. **Pipeline** (`src/`, `scripts/`) — generates a synthetic device fleet and produces real model-backed content (confidence + explanations) in plain language.
 2. **API** (`api.py`) — a FastAPI layer that serves that content to the UI and records the admin's decisions.
-3. **Frontend** (`frontend/`) — a React app that renders the screens. (The judged UI is designed in **Figma**; this React app is the working implementation of that design.)
+3. **Frontend** (`frontend/`) — a React app that renders the screens. 
 
 ---
 
