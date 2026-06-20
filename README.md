@@ -1,151 +1,86 @@
-# Trust-AI Backend — Data & Model Pipeline
+# Trust-AI Console & Data Pipeline
 
-Backend data pipeline for the Dell hackathon project **"Designing Transparent &
-Trustworthy AI Agent Interfaces."**
+This is the codebase for the Dell hackathon project **"Designing Transparent & Trustworthy AI Agent Interfaces."**
 
-There is **no live server** here. The Figma prototype is the product; this repo
-produces the *authentic content* that fills it and the *evidence* that the
-confidence indicators come from a real model. It outputs:
-
-- a self-consistent synthetic device fleet,
-- **real** confidence scores from a pretrained Hugging Face model, mapped to
-  plain-language bands,
-- plain-language "Ask Why" factors derived from LIME explainability,
-- fully assembled recommendation objects covering all five transparency
-  elements, plus an activity log,
-- a **content pack** the designers copy-paste straight into Figma frames.
+The repository contains a fully interactive **Trust-AI Console** (React/Vite) backed by a **FastAPI backend**, as well as the original data pipeline that generates authentic, model-backed data for the system.
 
 ---
 
-## The five transparency elements → where each comes from
+## 🚀 Quick Start
 
-| Element | Produced by |
-|---|---|
-| 1. Reasoning steps (plain language) | authored in `src/scenarios.py`, real counts filled at assembly |
-| 2. Confidence band (contextual, never a %) | `src/confidence.py` — real model score → band |
-| 3. Data source attribution | `src/scenarios.py` + real fleet counts |
-| 4. Known limitations | authored per scenario, shown where the agent is at the edge of competence |
-| 5. Human-in-the-loop controls | `src/schema.py` (Approve / Override / Ask Why / See Alternatives / Escalate) |
+The application has three components: generating the data, running the backend API, and running the frontend dashboard.
 
-The raw model score is recorded for your slides/README **only** — it never
-appears in any user-facing string. `src/plain_language.py` scans the output and
-warns if a number or jargon term leaks into a UI field.
-
----
-
-## Project layout
-
-```
-trust-ai-backend/
-├── run_all.py                  # run the whole pipeline in order
-├── requirements.txt
-├── README.md
-├── src/
-│   ├── config.py               # paths, fleet size, thresholds, model name
-│   ├── schema.py               # the recommendation schema (the designer contract)
-│   ├── scenarios.py            # the 3 scenarios: authored content + model params
-│   ├── fleet.py                # Faker fleet generation (exact-count cohorts)
-│   ├── confidence.py           # zero-shot classifier + score→band mapping
-│   ├── explain.py              # LIME → plain-language factors (with fallback)
-│   └── plain_language.py       # jargon/number guardrail
-├── scripts/
-│   ├── 01_generate_fleet.py
-│   ├── 02_classify_alerts.py
-│   ├── 03_explain_alerts.py
-│   ├── 04_assemble_recommendations.py
-│   ├── 05_build_activity_log.py
-│   └── 06_export_content_pack.py
-├── data/                       # generated inputs (gitignored)
-└── outputs/                    # final artifacts for the designers (gitignored)
-```
-
----
-
-## Setup
-
-Requires Python 3.10+.
+### 1. Setup & Generate Data
+The backend relies on synthetic fleet data and real model explanations.
 
 ```bash
 # 1. Create and activate a virtual environment
 python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
+# Windows: .venv\Scripts\activate
+# Mac/Linux: source .venv/bin/activate
 
 # 2. Install dependencies
 pip install -r requirements.txt
+
+# 3. Generate the data (Fast offline mode)
+python run_all.py --offline
 ```
 
-> **Note on size/speed:** `torch` + the `facebook/bart-large-mnli` model are a
-> large first-time download and run slowly on CPU. If you're on hackathon wifi
-> or short on time, use the **`--offline`** flag (below) — it produces the same
-> shaped output using predefined scores and authored factors, so the designers
-> are never blocked. Run the real model at least once to capture genuine scores
-> for your deck.
-
----
-
-## How to run (two ways)
-
-### Option A — one command
+### 2. Run the Backend API (FastAPI)
+The backend serves the generated data and KPIs to the dashboard.
 
 ```bash
-python run_all.py              # real Hugging Face model
-# or
-python run_all.py --offline    # fast: predefined scores + authored factors
+# Run from the root directory
+uvicorn api:app --port 8001
 ```
 
-### Option B — step by step (recommended the first time)
-
-Run from the repo root. Steps 02 and 03 accept `--offline`.
+### 3. Run the Frontend Console (React/Vite)
+The interactive interface for the IT Administrator.
 
 ```bash
-python scripts/01_generate_fleet.py
-python scripts/02_classify_alerts.py            # add --offline to skip the model
-python scripts/03_explain_alerts.py             # add --offline to skip LIME
-python scripts/04_assemble_recommendations.py
-python scripts/05_build_activity_log.py
-python scripts/06_export_content_pack.py
+# In a new terminal tab:
+cd frontend
+npm install
+npm run dev
+```
+Navigate to `http://localhost:5173` in your browser.
+
+---
+
+## 🧠 The Trust-AI Pitch & Narrative
+
+The core problem we solve is that **current AI interfaces are often black boxes**, which causes enterprise IT administrators to distrust and ignore AI recommendations. We solved this by designing a **transparent, explainable, and trustworthy AI interface**.
+
+Our interactive dashboard highlights:
+1. **Autonomy Modes (Trust Levels):** The Admin controls how much freedom the AI has ("Always Ask", "Recommend", or "Act & Notify").
+2. **Data Distillation:** Our backend processes hundreds of raw, active fleet alerts and mathematically condenses them into a small, actionable queue of AI recommendations.
+3. **Plain Language Explanations:** The AI explains *Why* it made a recommendation without using opaque math or ML jargon.
+4. **Data Attribution & Limitations:** The AI cites the telemetry it used and admits when it has low confidence or limited data.
+5. **Human-in-the-Loop:** Admins can confidently Approve, Override, Escalate, or Dismiss any recommendation, building an immutable Activity Log.
+
+---
+
+## 🛠️ Project Architecture
+
+```
+trust-ai-backend/
+├── api.py                      # FastAPI backend serving the Dashboard
+├── frontend/                   # React/Vite interactive frontend
+│   ├── src/components/         # Dashboard, ReviewCenter, ActivityLog UI
+│   └── src/index.css           # Premium Dark Glassmorphism Styling
+├── run_all.py                  # Pipeline to generate data
+├── src/                        # Data generation and ML pipeline logic
+│   ├── config.py               
+│   ├── scenarios.py            # The 3 AI scenarios authored for the demo
+│   └── explain.py              # LIME model explanations
+├── data/                       # Generated inputs
+└── outputs/                    # Final JSON artifacts served by the API
 ```
 
-What each step does and produces:
-
-| Step | Script | Produces | Notes |
-|---|---|---|---|
-| 1 | `01_generate_fleet.py` | `data/fleet.json`, `data/events.csv` | 500 devices; exact cohorts so narrative counts are true |
-| 2 | `02_classify_alerts.py` | `data/confidence.json` | real score per scenario → band + driver |
-| 3 | `03_explain_alerts.py` | `data/explanations.json` | plain-language factors for "Ask Why" |
-| 4 | `04_assemble_recommendations.py` | `outputs/recommendations.json` | full objects; runs the jargon guardrail |
-| 5 | `05_build_activity_log.py` | `outputs/activity_log.json` | audit trail + a filtered (security) state |
-| 6 | `06_export_content_pack.py` | `outputs/content_pack.md`, `outputs/content_pack.json` | the designer handoff |
-
 ---
 
-## The deliverable for the designers
+## 📊 For Your Presentation
 
-After a full run, hand over **`outputs/content_pack.md`**. It contains every
-string for the frames — per recommendation: reasoning steps, confidence band +
-driver, "Ask Why" factors, data sources, limitations, alternatives, and the
-control bar — followed by the activity-log table and its filtered state.
+Pitch the technical pipeline as: **Synthetic Telemetry → Hugging Face Zero-Shot Classifier → LIME Explainability → Human Translation → Interactive React Dashboard.**
 
-`outputs/recommendations.json` is the structured version if anyone wants to
-import it programmatically.
-
----
-
-## Customizing
-
-- **Change thresholds / fleet size / model:** `src/config.py`.
-- **Add or edit a scenario:** add an entry to `SCENARIOS` in `src/scenarios.py`
-  (and an `OFFLINE_SCORES` value). Use `{similar_count}`, `{patch_count}`,
-  `{finance_count}` in any string and it will be filled with the real number.
-- **Swap LIME for SHAP:** uncomment `shap` in `requirements.txt` and add a SHAP
-  branch in `src/explain.py` mirroring `explain_with_lime`.
-
----
-
-## For your slides (Transparency 25% / Innovation 15%)
-
-Pitch the pipeline as: **Faker fleet → real Hugging Face zero-shot classifier →
-LIME explainability → human translation into plain language.** The honest line
-that earns points: *"our confidence labels are produced by a real model, then
-deliberately translated into plain language — we never show a raw number or a
-SHAP plot to the admin."*
+The honest line that earns points: *"Our confidence labels are produced by a real model, then deliberately translated into plain language — we never show a raw probability number or a SHAP plot to the admin. Instead of just delivering Figma screens, we built a fully interactive React console to prove that explainable AI can feel premium, dynamic, and trustworthy in a real browser."*

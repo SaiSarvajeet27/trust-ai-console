@@ -4,6 +4,9 @@ Combines: scenario authored content + real cohort counts (fleet) + confidence
 band (step 02) + plain-language factors (step 03). Fills every {placeholder}
 with a real number, then runs the plain-language guardrail.
 
+Enhanced: now includes devil_advocate, agent_pipeline, historical_precedent,
+incident_template, priority, and category fields.
+
 Outputs:
   outputs/recommendations.json
 
@@ -19,7 +22,10 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 from src import config
 from src.scenarios import SCENARIOS
 from src.fleet import cohort_counts
-from src.schema import Recommendation, DataSource, Factor, Alternative
+from src.schema import (
+    Recommendation, DataSource, Factor, Alternative,
+    AgentStep, DevilAdvocate, HistoricalPrecedent, IncidentTemplate,
+)
 from src.plain_language import scan_all
 
 
@@ -54,17 +60,46 @@ def main() -> None:
         conf = confidence[sc["id"]]
         factors = explanations[sc["id"]]
 
+        # Build devil_advocate
+        da_data = _fmt(sc.get("devil_advocate", {}), counts)
+        devil_adv = DevilAdvocate(**da_data) if da_data else None
+
+        # Build agent_pipeline
+        ap_data = _fmt(sc.get("agent_pipeline", []), counts)
+        agent_steps = [AgentStep(**s) for s in ap_data]
+
+        # Build historical_precedent
+        hp_data = _fmt(sc.get("historical_precedent", {}), counts)
+        hist_prec = HistoricalPrecedent(
+            similar_alerts=hp_data["similar_alerts"],
+            actions_taken=hp_data["actions_taken"],
+            outcomes=hp_data["outcomes"],
+            summary=hp_data["summary"],
+        ) if hp_data else None
+
+        # Build incident_template — needs target_summary resolved first
+        resolved_target = _fmt(sc["target_summary"], counts)
+        extended_counts = {**counts, "target_summary": resolved_target}
+        it_data = _fmt(sc.get("incident_template", {}), extended_counts)
+        inc_tmpl = IncidentTemplate(**it_data) if it_data else None
+
         rec = Recommendation(
             id=sc["id"],
             action=sc["action"],
-            target_summary=_fmt(sc["target_summary"], counts),
+            target_summary=resolved_target,
             confidence_band=conf["band"],
             confidence_driver=conf["driver"],
+            priority=sc.get("priority", "medium"),
+            category=sc.get("category", "security"),
             reasoning_steps=_fmt(sc["reasoning_steps"], counts),
             factors=[Factor(**f) for f in _fmt(factors, counts)],
             data_sources=[DataSource(**d) for d in _fmt(sc["data_sources"], counts)],
             limitations=_fmt(sc["limitations"], counts),
             alternatives=[Alternative(**a) for a in _fmt(sc["alternatives"], counts)],
+            devil_advocate=devil_adv,
+            agent_pipeline=agent_steps,
+            historical_precedent=hist_prec,
+            incident_template=inc_tmpl,
             status="pending",
             _raw_model_score=conf["raw_score"],
             _positive_label=sc["positive_label"],

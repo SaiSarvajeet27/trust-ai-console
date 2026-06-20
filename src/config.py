@@ -31,6 +31,10 @@ SEED = 42
 # ----------------------------------------------------------------------------
 FLEET_SIZE = 500
 
+# How many pending recommendations the dashboard shows at once. When one is
+# decided it drops off and the next pending one automatically takes its place.
+WINDOW_SIZE = 8  # increased from 4 to show more on the dashboard
+
 # Exact-count cohorts assigned during generation so the narrative numbers in
 # the recommendations are guaranteed to be TRUE in the data.
 SIMILAR_PROFILE_COUNT = 342   # scenario 1 ("342 similar devices")
@@ -81,3 +85,47 @@ BANNED_TERMS = [
     "confidence score", "shap", "lime", "classifier", "inference", "%",
     "p-value", "feature vector", "tensor",
 ]
+
+# ----------------------------------------------------------------------------
+# Autonomy modes (new)
+# ----------------------------------------------------------------------------
+AUTONOMY_MODES = {
+    "always_ask": {
+        "label": "Always Ask",
+        "description": "AI recommends, human decides every action",
+        "auto_approve": False,
+        "notify": True,
+    },
+    "recommend_only": {
+        "label": "Recommend Only",
+        "description": "AI surfaces recommendations but takes no action",
+        "auto_approve": False,
+        "notify": True,
+    },
+    "act_and_notify": {
+        "label": "Act & Notify",
+        "description": "AI acts on high-confidence items and notifies you",
+        "auto_approve": True,  # only for high confidence
+        "notify": True,
+    },
+    "full_auto": {
+        "label": "Full Autonomous",
+        "description": "AI handles routine actions autonomously (requires admin approval to enable)",
+        "auto_approve": True,
+        "notify": False,
+    },
+}
+
+DEFAULT_AUTONOMY_MODE = "always_ask"
+
+# ----------------------------------------------------------------------------
+# Priority configuration
+# ----------------------------------------------------------------------------
+PRIORITY_ORDER = {"critical": 0, "high": 1, "medium": 2, "low": 3}
+
+# ----------------------------------------------------------------------------
+# Device health thresholds
+# ----------------------------------------------------------------------------
+HEALTH_CRITICAL_RISK = 80    # risk_score >= this -> critical
+HEALTH_AT_RISK = 50          # risk_score >= this -> at_risk
+# below AT_RISK              -> healthy
