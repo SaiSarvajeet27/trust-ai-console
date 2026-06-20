@@ -12,7 +12,7 @@ The project has three parts:
 
 ---
 
-## Quick start (for teammates)
+## Quick start 
 
 ```bash
 git clone https://github.com/SaiSarvajeet27/trust-ai-console.git
