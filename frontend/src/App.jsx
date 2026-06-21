@@ -8,6 +8,7 @@ import {
 } from './api'
 import Sidebar from './components/Sidebar'
 import Dashboard from './components/Dashboard'
+import DeviceExplorer from './components/DeviceExplorer'
 import RecommendationDetail from './components/RecommendationDetail'
 import ReviewCenter from './components/ReviewCenter'
 import ActivityLog from './components/ActivityLog'
@@ -150,6 +151,7 @@ export default function App() {
 
   const viewTitles = {
     dashboard: 'AI Operations Dashboard',
+    devices: 'Device Explorer',
     detail: 'Recommendation Detail',
     review: 'Human Review Center',
     log: 'Activity Log & Audit Trail',
@@ -218,6 +220,11 @@ export default function App() {
             onOpenDetail={openDetail}
             onDecision={openDecisionModal}
           />
+        )}
+
+        {/* ── Screen 1.5: Device Explorer ───────────────────────── */}
+        {!loading && view === 'devices' && (
+          <DeviceExplorer />
         )}
 
         {/* ── Screen 2: Recommendation Detail ─────────────────── */}

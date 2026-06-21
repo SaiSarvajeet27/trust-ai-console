@@ -1331,8 +1331,8 @@ body {
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(20px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 @keyframes slideInLeft {
@@ -1356,15 +1356,15 @@ body {
 }
 
 .animate-in {
-  animation: slideUp 400ms cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation: slideUp 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.animate-in-1 { animation-delay: 50ms; }
-.animate-in-2 { animation-delay: 100ms; }
-.animate-in-3 { animation-delay: 150ms; }
-.animate-in-4 { animation-delay: 200ms; }
-.animate-in-5 { animation-delay: 250ms; }
-.animate-in-6 { animation-delay: 300ms; }
+.animate-in-1 { animation-delay: 100ms; }
+.animate-in-2 { animation-delay: 200ms; }
+.animate-in-3 { animation-delay: 300ms; }
+.animate-in-4 { animation-delay: 400ms; }
+.animate-in-5 { animation-delay: 500ms; }
+.animate-in-6 { animation-delay: 600ms; }
 
 /* ── Recharts overrides ─────────────────────────────────────────────────── */
 .recharts-cartesian-grid-horizontal line,

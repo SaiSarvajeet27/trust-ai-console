@@ -58,6 +58,17 @@ export async function getFleetAnalytics() {
   return asJson(await fetch(`${BASE}/api/fleet/analytics`))
 }
 
+export async function getDevices(params = {}) {
+  const q = new URLSearchParams()
+  if (params.search) q.set('search', params.search)
+  if (params.department) q.set('department', params.department)
+  if (params.health) q.set('health', params.health)
+  if (params.limit) q.set('limit', params.limit)
+  if (params.offset) q.set('offset', params.offset)
+  const qs = q.toString()
+  return asJson(await fetch(`${BASE}/api/fleet/devices${qs ? '?' + qs : ''}`))
+}
+
 // ── Dashboard KPIs ───────────────────────────────────────────────
 export async function getDashboardKPIs() {
   return asJson(await fetch(`${BASE}/api/dashboard/kpis`))

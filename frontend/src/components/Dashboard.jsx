@@ -1,8 +1,30 @@
+import React, { useState, useEffect } from 'react'
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import ConfidenceBadge from './ConfidenceBadge'
 
 const HEALTH_COLORS = { healthy: '#10b981', at_risk: '#f59e0b', critical: '#ef4444' }
 const PRIORITY_LABELS = { critical: 'Critical', high: 'High', medium: 'Medium', low: 'Low' }
+
+function CountUp({ end, duration = 1000 }) {
+  const [count, setCount] = useState(0)
+  
+  useEffect(() => {
+    let startTimestamp = null
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp
+      // easeOutQuart
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1)
+      const ease = 1 - Math.pow(1 - progress, 4)
+      setCount(Math.floor(ease * end))
+      if (progress < 1) {
+        window.requestAnimationFrame(step)
+      }
+    }
+    window.requestAnimationFrame(step)
+  }, [end, duration])
+
+  return <>{count}</>
+}
 
 export default function Dashboard({ kpis, analytics, recs, onOpenDetail, onDecision }) {
   const healthData = kpis?.health
@@ -20,7 +42,7 @@ export default function Dashboard({ kpis, analytics, recs, onOpenDetail, onDecis
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
           </div>
           <div className="kpi-label">Fleet Size</div>
-          <div className="kpi-value">{kpis?.fleet_size || 0}</div>
+          <div className="kpi-value"><CountUp end={kpis?.fleet_size || 0} /></div>
           <div className="kpi-change kpi-change--up">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M7 14l5-5 5 5z"/></svg>
             Active & monitored
@@ -36,7 +58,7 @@ export default function Dashboard({ kpis, analytics, recs, onOpenDetail, onDecis
               <span className="info-tooltip"><strong>Active Alerts</strong><br/>Devices that are not healthy (at-risk + critical). Matches the Fleet Health donut: healthy + active alerts = fleet size.</span>
             </span>
           </div>
-          <div className="kpi-value">{kpis?.active_alerts || 0}</div>
+          <div className="kpi-value"><CountUp end={kpis?.active_alerts || 0} /></div>
           <div className="kpi-change kpi-change--down">
             {kpis?.at_risk_alerts ?? 0} at risk · {kpis?.critical_alerts ?? 0} critical
           </div>
@@ -51,7 +73,7 @@ export default function Dashboard({ kpis, analytics, recs, onOpenDetail, onDecis
               <span className="info-tooltip"><strong>Trust Score</strong><br/>The share of past AI recommendations you approved rather than overrode. A higher score means the agent's calls are matching your judgement.</span>
             </span>
           </div>
-          <div className="kpi-value">{kpis?.trust_score || 0}<span style={{ fontSize: '18px', color: 'var(--text-muted)' }}>%</span></div>
+          <div className="kpi-value"><CountUp end={kpis?.trust_score || 0} /><span style={{ fontSize: '18px', color: 'var(--text-muted)' }}>%</span></div>
           <div className="kpi-change kpi-change--up">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M7 14l5-5 5 5z"/></svg>
             Approval rate across your decisions
@@ -63,7 +85,7 @@ export default function Dashboard({ kpis, analytics, recs, onOpenDetail, onDecis
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
           </div>
           <div className="kpi-label">Pending Reviews</div>
-          <div className="kpi-value">{kpis?.pending_recommendations || 0}</div>
+          <div className="kpi-value"><CountUp end={kpis?.pending_recommendations || 0} /></div>
           <div className="kpi-change">
             Awaiting your decision
           </div>
