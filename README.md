@@ -4,8 +4,8 @@ This is the codebase for the Dell hackathon project **"Designing Transparent & T
 
 This repository contains:
 1. A **data and ML pipeline** that generates synthetic telemetry and authentic Hugging Face/LIME model explanations.
-2. A **FastAPI backend** that serves this data.
-3. An **interactive React dashboard** that visualizes the AI's recommendations, reasoning, and transparency features.
+2. A **FastAPI backend** that serves this data and handles JWT Authentication (Email/Password & Google Sign-In).
+3. An **interactive React dashboard** that visualizes the AI's recommendations, reasoning, and transparency features, gated by a modern glassmorphism Auth UI.
 
 ---
 
@@ -47,6 +47,12 @@ cd frontend
 npm install
 npm run dev
 ```
+
+**Environment Setup:** To enable Google Sign-In locally, create a `frontend/.env` file with your Google Client ID:
+```env
+VITE_GOOGLE_CLIENT_ID=your_google_client_id_here
+```
+
 Navigate to `http://localhost:5173` in your browser.
 
 ---
@@ -133,4 +139,18 @@ What each step does and produces:
 
 Pitch the technical pipeline as: **Synthetic Telemetry → Hugging Face Zero-Shot Classifier → LIME Explainability → Human Translation → Interactive React Dashboard.**
 
-The honest line that earns points: *"Our confidence labels are produced by a real model, then deliberately translated into plain language — we never show a raw probability number or a SHAP plot to the admin. Instead of just delivering Figma screens, we built a fully interactive React console to prove that explainable AI can feel premium, dynamic, and trustworthy in a real browser."*
+The honest line that earns points: *"Our confidence labels are produced by a real model, then deliberately translated into plain language — we never show a raw probability number or a SHAP plot to the admin. Instead of just delivering Figma screens, we built a fully interactive React console with a complete FastAPI Authentication layer to prove that explainable AI can feel premium, dynamic, and trustworthy in a real browser."*
+
+---
+
+## 🚀 Deployment (Vercel)
+
+This project is configured to deploy as a unified Full-Stack application on Vercel. 
+The included `vercel.json` automatically routes `/api/*` to the FastAPI backend using Vercel's Python Serverless Functions, while serving the React frontend statically.
+
+**To Deploy:**
+1. Push your repository to GitHub and link it to Vercel.
+2. In the Vercel Dashboard -> Settings -> Environments, add:
+   - `VITE_GOOGLE_CLIENT_ID` (Your Google OAuth ID for the Sign-In button)
+3. Leave `VITE_API_BASE` blank (Vercel automatically handles the relative routing).
+4. Deploy! The frontend and backend will automatically wire themselves up.
