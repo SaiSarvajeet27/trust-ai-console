@@ -1,5 +1,7 @@
 // All calls to the FastAPI backend live here.
-const BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000'
+// In dev mode Vite proxies /api/* to the FastAPI backend (see vite.config.ts).
+// VITE_API_BASE can still be set to override (e.g. for production builds).
+const BASE = import.meta.env.VITE_API_BASE || ''
 
 async function asJson(res) {
   if (!res.ok) {

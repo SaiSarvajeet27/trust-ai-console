@@ -129,25 +129,27 @@
 
 .info-tooltip {
   position: absolute;
-  bottom: calc(100% + 8px);
+  top: calc(100% + 8px);
   left: 50%;
   transform: translateX(-50%);
   width: max-content;
-  max-width: 200px;
+  max-width: 280px;
   background: var(--bg-elevated);
   border: 1px solid var(--border-subtle);
   color: var(--text-primary);
-  padding: 8px 12px;
+  padding: 10px 14px;
   border-radius: var(--radius-sm);
   font-size: 11px;
   font-weight: normal;
   text-transform: none;
   letter-spacing: normal;
+  line-height: 1.5;
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--transition-fast);
-  z-index: 100;
-  box-shadow: var(--shadow-md);
+  z-index: 9999;
+  box-shadow: var(--shadow-lg);
+  white-space: normal;
 }
 
 .info-icon:hover .info-tooltip {

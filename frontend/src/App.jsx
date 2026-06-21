@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import {
   getRecommendations, getAllRecommendations, postDecision,
   getActivityLog, getActivityLogStats,
@@ -15,6 +15,9 @@ import IncidentReport from './components/IncidentReport'
 import DecisionModal from './components/DecisionModal'
 import './index.css'
 import './timeline.css'
+
+// Sentinel to distinguish "fetch failed" from "API returned empty"
+const FETCH_FAILED = Symbol('FETCH_FAILED')
 
 export default function App() {
   // Navigation
@@ -41,39 +44,68 @@ export default function App() {
   // UI state
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [apiConnected, setApiConnected] = useState(true)
   const [decisionModal, setDecisionModal] = useState(null)
+  const hasLoadedOnce = useRef(false)
 
   // Filters for activity log
   const [logFilters, setLogFilters] = useState({})
 
   const refresh = useCallback(async () => {
-    try {
+    // Only show the full-screen loading spinner on the very first load
+    if (!hasLoadedOnce.current) {
       setLoading(true)
+    }
+    try {
+      // Use FETCH_FAILED sentinel so we can tell "API down" from "API returned empty"
       const [r, ar, k, a, l, ls, au] = await Promise.all([
-        getRecommendations().catch(() => []),
-        getAllRecommendations().catch(() => []),
-        getDashboardKPIs().catch(() => null),
-        getFleetAnalytics().catch(() => null),
-        getActivityLog(logFilters).catch(() => ({ all: [] })),
-        getActivityLogStats().catch(() => null),
-        getAutonomy().catch(() => ({ mode: 'always_ask', label: 'Always Ask' })),
+        getRecommendations().catch(() => FETCH_FAILED),
+        getAllRecommendations().catch(() => FETCH_FAILED),
+        getDashboardKPIs().catch(() => FETCH_FAILED),
+        getFleetAnalytics().catch(() => FETCH_FAILED),
+        getActivityLog(logFilters).catch(() => FETCH_FAILED),
+        getActivityLogStats().catch(() => FETCH_FAILED),
+        getAutonomy().catch(() => FETCH_FAILED),
       ])
-      setRecs(r)
-      setAllRecs(ar)
-      setKpis(k)
-      setAnalytics(a)
-      setLogData(l)
-      setLogStats(ls)
-      setAutonomy(au)
-      setError(null)
+
+      // Check if ALL calls failed (API is completely unreachable)
+      const allFailed = [r, ar, k, a, l, ls, au].every(v => v === FETCH_FAILED)
+
+      if (allFailed) {
+        // API is down — keep existing data, show error
+        setApiConnected(false)
+        setError('Cannot reach the API server. Make sure uvicorn is running on port 8000.')
+      } else {
+        // At least some calls succeeded — update only the ones that worked
+        setApiConnected(true)
+        setError(null)
+        if (r !== FETCH_FAILED) setRecs(r)
+        if (ar !== FETCH_FAILED) setAllRecs(ar)
+        if (k !== FETCH_FAILED) setKpis(k)
+        if (a !== FETCH_FAILED) setAnalytics(a)
+        if (l !== FETCH_FAILED) setLogData(l)
+        if (ls !== FETCH_FAILED) setLogStats(ls)
+        if (au !== FETCH_FAILED) setAutonomy(au)
+        hasLoadedOnce.current = true
+      }
     } catch (e) {
+      setApiConnected(false)
       setError(e.message)
     } finally {
       setLoading(false)
     }
   }, [logFilters])
 
+  // Initial load + re-fetch when filters change
   useEffect(() => { refresh() }, [refresh])
+
+  // Auto-retry every 10 seconds when the API is disconnected
+  useEffect(() => {
+    if (!apiConnected) {
+      const timer = setInterval(refresh, 10_000)
+      return () => clearInterval(timer)
+    }
+  }, [apiConnected, refresh])
 
   async function handleDecision(id, decision, note) {
     try {

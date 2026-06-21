@@ -31,6 +31,17 @@ export default defineConfig({
     },
   },
 
+  // Proxy /api calls to the FastAPI backend so there are no CORS issues
+  // and the frontend doesn't need to know the backend port.
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true,
+      },
+    },
+  },
+
   // File types to support raw imports. Never add .css, .tsx, or .ts files to this.
   assetsInclude: ['**/*.svg', '**/*.csv'],
 })
