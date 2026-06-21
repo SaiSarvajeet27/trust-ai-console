@@ -1,0 +1,8 @@
+{
+  "name": "trust-ai-root",
+  "private": true,
+  "scripts": {
+    "install": "cd frontend && npm install",
+    "build": "cd frontend && npm run build"
+  }
+}
