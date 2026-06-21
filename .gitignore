@@ -6,10 +6,11 @@ venv/
 env/
 
 # Generated artifacts (regenerate with the scripts)
-data/*.json
-data/*.csv
-outputs/*.json
-outputs/*.md
+# We are committing these so Render can use them without running the memory-heavy ML pipeline
+# data/*.json
+# data/*.csv
+# outputs/*.json
+# outputs/*.md
 
 # Keep the empty dirs tracked
 !data/.gitkeep

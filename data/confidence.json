@@ -1,0 +1,82 @@
+{
+  "REC-001": {
+    "raw_score": 0.9463,
+    "band": "High Confidence",
+    "driver": "Strongly supported by sign-ins from an unusual location and a clear match to past cases.",
+    "all_scores": {
+      "confirmed security threat": 0.9463140368461609,
+      "likely false positive": 0.0485323891043663,
+      "routine activity": 0.005153553560376167
+    }
+  },
+  "REC-002": {
+    "raw_score": 0.5119,
+    "band": "Low \u2014 Verify Manually",
+    "driver": "Based on a known security weakness on many devices, but the signals are weak or new \u2014 verify manually.",
+    "all_scores": {
+      "recommended maintenance action": 0.5119286179542542,
+      "high-risk change": 0.4079163670539856,
+      "no action needed": 0.08015494793653488
+    }
+  },
+  "REC-003": {
+    "raw_score": 0.7457,
+    "band": "Review Recommended",
+    "driver": "Supported by unusual internal traffic, but a quick human check is worth it before acting.",
+    "all_scores": {
+      "recommended security change": 0.7457168102264404,
+      "needs human review": 0.2080775648355484,
+      "false positive": 0.04620564356446266
+    }
+  },
+  "REC-004": {
+    "raw_score": 0.1281,
+    "band": "Low \u2014 Verify Manually",
+    "driver": "Based on dormant for 96 days, but the signals are weak or new \u2014 verify manually.",
+    "all_scores": {
+      "needs owner confirmation": 0.8478804230690002,
+      "recommended security cleanup": 0.12812651693820953,
+      "leave as is": 0.02399306744337082
+    }
+  },
+  "REC-005": {
+    "raw_score": 0.7236,
+    "band": "Review Recommended",
+    "driver": "Supported by appearance in a credential leak, but a quick human check is worth it before acting.",
+    "all_scores": {
+      "recommended protective action": 0.7235541939735413,
+      "false match": 0.23550817370414734,
+      "low risk, monitor": 0.04093761742115021
+    }
+  },
+  "REC-006": {
+    "raw_score": 0.3818,
+    "band": "Low \u2014 Verify Manually",
+    "driver": "Based on devices without encryption, but the signals are weak or new \u2014 verify manually.",
+    "all_scores": {
+      "optional": 0.5531480312347412,
+      "recommended compliance action": 0.3818410038948059,
+      "not applicable": 0.0650109127163887
+    }
+  },
+  "REC-007": {
+    "raw_score": 0.6793,
+    "band": "Review Recommended",
+    "driver": "Supported by ransomware-like file activity, but a quick human check is worth it before acting.",
+    "all_scores": {
+      "confirmed threat": 0.6792687177658081,
+      "suspicious but unclear": 0.3090043365955353,
+      "likely false positive": 0.011726929806172848
+    }
+  },
+  "REC-008": {
+    "raw_score": 0.1636,
+    "band": "Low \u2014 Verify Manually",
+    "driver": "Based on employee left 12 days ago, but the signals are weak or new \u2014 verify manually.",
+    "all_scores": {
+      "verify with HR": 0.7930343747138977,
+      "recommended offboarding action": 0.16355758905410767,
+      "no action needed": 0.04340806230902672
+    }
+  }
+}

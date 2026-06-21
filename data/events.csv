@@ -1,0 +1,305 @@
+device_id,type,timestamp,detail
+DSK-1019,alert,2026-06-10 11:00,security alert raised
+LAP-1146,alert,2026-06-18 20:00,security alert raised
+LAP-1146,login,2026-06-17 21:00,sign-in attempt
+LAP-1146,login,2026-06-08 00:00,sign-in attempt
+LAP-1146,patch,2026-06-17 02:00,update applied
+DSK-1356,patch,2026-06-04 02:00,update applied
+DSK-1356,patch,2026-06-05 14:00,update applied
+DSK-1356,patch,2026-06-17 02:00,update applied
+DSK-1356,login,2026-06-17 02:00,sign-in attempt
+WKS-1390,alert,2026-06-12 18:00,security alert raised
+WKS-1390,alert,2026-06-04 06:00,security alert raised
+DSK-1073,patch,2026-06-09 06:00,update applied
+DSK-1073,patch,2026-06-04 14:00,update applied
+DSK-1073,patch,2026-06-13 23:00,update applied
+DSK-1073,login,2026-06-10 19:00,sign-in attempt
+WKS-1491,alert,2026-06-07 23:00,security alert raised
+WKS-1491,alert,2026-06-15 15:00,security alert raised
+WKS-1236,patch,2026-06-15 18:00,update applied
+WKS-1236,patch,2026-06-05 12:00,update applied
+DSK-1189,login,2026-06-11 08:00,sign-in attempt
+DSK-1189,login,2026-06-18 00:00,sign-in attempt
+DSK-1343,alert,2026-06-05 05:00,security alert raised
+WKS-1357,alert,2026-06-13 16:00,security alert raised
+LAP-1405,login,2026-06-11 12:00,sign-in attempt
+LAP-1405,login,2026-06-16 00:00,sign-in attempt
+LAP-1049,alert,2026-06-15 21:00,security alert raised
+LAP-1232,login,2026-06-12 11:00,sign-in attempt
+LAP-1232,login,2026-06-18 19:00,sign-in attempt
+LAP-1232,patch,2026-06-17 14:00,update applied
+LAP-1232,patch,2026-06-14 07:00,update applied
+DSK-1306,alert,2026-06-09 20:00,security alert raised
+DSK-1306,alert,2026-06-15 18:00,security alert raised
+WKS-1255,login,2026-06-17 16:00,sign-in attempt
+WKS-1255,patch,2026-06-07 16:00,update applied
+DSK-1311,patch,2026-06-07 14:00,update applied
+WKS-1009,patch,2026-06-16 00:00,update applied
+WKS-1009,alert,2026-06-15 09:00,security alert raised
+WKS-1263,patch,2026-06-09 03:00,update applied
+WKS-1263,patch,2026-06-14 01:00,update applied
+LAP-1221,patch,2026-06-14 01:00,update applied
+LAP-1221,alert,2026-06-11 07:00,security alert raised
+LAP-1221,alert,2026-06-12 01:00,security alert raised
+LAP-1221,patch,2026-06-10 06:00,update applied
+WKS-1295,login,2026-06-09 02:00,sign-in attempt
+DSK-1190,alert,2026-06-08 00:00,security alert raised
+DSK-1190,alert,2026-06-17 04:00,security alert raised
+WKS-1319,alert,2026-06-15 18:00,security alert raised
+LAP-1436,alert,2026-06-06 01:00,security alert raised
+LAP-1436,alert,2026-06-18 16:00,security alert raised
+DSK-1280,patch,2026-06-11 11:00,update applied
+DSK-1280,patch,2026-06-17 14:00,update applied
+WKS-1453,patch,2026-06-07 16:00,update applied
+WKS-1453,patch,2026-06-16 21:00,update applied
+WKS-1453,patch,2026-06-13 14:00,update applied
+WKS-1453,patch,2026-06-17 12:00,update applied
+LAP-1386,patch,2026-06-14 18:00,update applied
+LAP-1386,login,2026-06-06 10:00,sign-in attempt
+LAP-1386,login,2026-06-13 15:00,sign-in attempt
+LAP-1386,patch,2026-06-15 06:00,update applied
+DSK-1222,alert,2026-06-08 23:00,security alert raised
+DSK-1222,login,2026-06-14 20:00,sign-in attempt
+DSK-1222,login,2026-06-15 20:00,sign-in attempt
+LAP-1201,alert,2026-06-08 06:00,security alert raised
+LAP-1201,alert,2026-06-07 02:00,security alert raised
+DSK-1090,patch,2026-06-04 09:00,update applied
+DSK-1090,patch,2026-06-04 08:00,update applied
+WKS-1029,patch,2026-06-05 21:00,update applied
+WKS-1029,alert,2026-06-10 13:00,security alert raised
+LAP-1435,login,2026-06-05 11:00,sign-in attempt
+LAP-1435,patch,2026-06-10 16:00,update applied
+LAP-1054,login,2026-06-09 02:00,sign-in attempt
+DSK-1419,login,2026-06-12 06:00,sign-in attempt
+DSK-1419,patch,2026-06-08 10:00,update applied
+DSK-1419,alert,2026-06-11 07:00,security alert raised
+DSK-1419,alert,2026-06-18 00:00,security alert raised
+WKS-1063,patch,2026-06-05 22:00,update applied
+WKS-1063,patch,2026-06-17 03:00,update applied
+WKS-1063,alert,2026-06-15 10:00,security alert raised
+WKS-1063,alert,2026-06-17 03:00,security alert raised
+DSK-1192,patch,2026-06-16 19:00,update applied
+DSK-1192,patch,2026-06-18 22:00,update applied
+DSK-1192,patch,2026-06-13 23:00,update applied
+DSK-1192,login,2026-06-04 07:00,sign-in attempt
+LAP-1078,login,2026-06-18 04:00,sign-in attempt
+LAP-1078,patch,2026-06-15 14:00,update applied
+LAP-1078,login,2026-06-12 10:00,sign-in attempt
+DSK-1488,login,2026-06-08 02:00,sign-in attempt
+LAP-1082,login,2026-06-04 21:00,sign-in attempt
+DSK-1262,alert,2026-06-15 17:00,security alert raised
+DSK-1262,login,2026-06-06 12:00,sign-in attempt
+WKS-1427,login,2026-06-17 15:00,sign-in attempt
+DSK-1253,login,2026-06-09 08:00,sign-in attempt
+LAP-1065,patch,2026-06-14 12:00,update applied
+LAP-1065,alert,2026-06-16 19:00,security alert raised
+WKS-1395,patch,2026-06-06 06:00,update applied
+WKS-1395,patch,2026-06-08 02:00,update applied
+WKS-1395,patch,2026-06-08 14:00,update applied
+LAP-1198,patch,2026-06-09 01:00,update applied
+LAP-1198,login,2026-06-11 11:00,sign-in attempt
+LAP-1198,alert,2026-06-05 09:00,security alert raised
+LAP-1198,login,2026-06-10 20:00,sign-in attempt
+DSK-1305,login,2026-06-04 06:00,sign-in attempt
+DSK-1305,login,2026-06-06 21:00,sign-in attempt
+DSK-1305,login,2026-06-11 22:00,sign-in attempt
+DSK-1305,patch,2026-06-17 21:00,update applied
+DSK-1259,alert,2026-06-05 16:00,security alert raised
+WKS-1139,login,2026-06-12 00:00,sign-in attempt
+WKS-1139,login,2026-06-13 13:00,sign-in attempt
+WKS-1139,login,2026-06-12 22:00,sign-in attempt
+WKS-1139,login,2026-06-18 08:00,sign-in attempt
+LAP-1294,alert,2026-06-17 11:00,security alert raised
+LAP-1093,alert,2026-06-17 18:00,security alert raised
+LAP-1465,alert,2026-06-10 11:00,security alert raised
+LAP-1032,patch,2026-06-07 06:00,update applied
+LAP-1025,patch,2026-06-14 03:00,update applied
+LAP-1025,patch,2026-06-11 00:00,update applied
+LAP-1025,patch,2026-06-07 01:00,update applied
+WKS-1296,login,2026-06-10 00:00,sign-in attempt
+LAP-1031,login,2026-06-12 16:00,sign-in attempt
+LAP-1095,alert,2026-06-15 00:00,security alert raised
+LAP-1095,patch,2026-06-11 15:00,update applied
+LAP-1095,login,2026-06-17 04:00,sign-in attempt
+LAP-1446,patch,2026-06-06 16:00,update applied
+LAP-1446,patch,2026-06-17 13:00,update applied
+LAP-1446,login,2026-06-06 01:00,sign-in attempt
+LAP-1446,login,2026-06-10 21:00,sign-in attempt
+DSK-1429,patch,2026-06-13 06:00,update applied
+DSK-1429,patch,2026-06-14 21:00,update applied
+DSK-1429,patch,2026-06-13 08:00,update applied
+DSK-1429,login,2026-06-04 21:00,sign-in attempt
+WKS-1084,patch,2026-06-12 09:00,update applied
+WKS-1084,login,2026-06-15 03:00,sign-in attempt
+WKS-1084,alert,2026-06-07 16:00,security alert raised
+WKS-1084,patch,2026-06-11 04:00,update applied
+WKS-1151,login,2026-06-13 14:00,sign-in attempt
+WKS-1151,patch,2026-06-17 05:00,update applied
+WKS-1151,alert,2026-06-10 02:00,security alert raised
+WKS-1151,patch,2026-06-06 07:00,update applied
+WKS-1140,alert,2026-06-14 03:00,security alert raised
+WKS-1140,patch,2026-06-06 12:00,update applied
+WKS-1140,login,2026-06-18 04:00,sign-in attempt
+WKS-1140,login,2026-06-16 15:00,sign-in attempt
+LAP-1039,alert,2026-06-13 05:00,security alert raised
+LAP-1039,alert,2026-06-13 20:00,security alert raised
+DSK-1267,patch,2026-06-10 00:00,update applied
+DSK-1267,patch,2026-06-04 04:00,update applied
+DSK-1267,login,2026-06-10 14:00,sign-in attempt
+DSK-1267,patch,2026-06-09 01:00,update applied
+DSK-1478,alert,2026-06-10 19:00,security alert raised
+WKS-1052,patch,2026-06-07 20:00,update applied
+DSK-1416,patch,2026-06-07 14:00,update applied
+LAP-1299,login,2026-06-08 17:00,sign-in attempt
+LAP-1299,login,2026-06-08 22:00,sign-in attempt
+LAP-1299,patch,2026-06-14 19:00,update applied
+WKS-1334,alert,2026-06-05 23:00,security alert raised
+WKS-1334,login,2026-06-17 12:00,sign-in attempt
+WKS-1334,patch,2026-06-10 02:00,update applied
+WKS-1334,alert,2026-06-09 20:00,security alert raised
+LAP-1332,login,2026-06-13 05:00,sign-in attempt
+LAP-1332,patch,2026-06-08 13:00,update applied
+LAP-1332,login,2026-06-08 09:00,sign-in attempt
+WKS-1347,login,2026-06-16 20:00,sign-in attempt
+DSK-1444,patch,2026-06-14 13:00,update applied
+DSK-1444,patch,2026-06-18 12:00,update applied
+DSK-1444,login,2026-06-08 10:00,sign-in attempt
+DSK-1444,alert,2026-06-07 02:00,security alert raised
+LAP-1048,patch,2026-06-05 02:00,update applied
+LAP-1048,alert,2026-06-18 20:00,security alert raised
+LAP-1048,login,2026-06-04 19:00,sign-in attempt
+DSK-1318,login,2026-06-07 07:00,sign-in attempt
+DSK-1318,patch,2026-06-07 04:00,update applied
+DSK-1318,login,2026-06-12 14:00,sign-in attempt
+WKS-1234,alert,2026-06-16 17:00,security alert raised
+WKS-1234,login,2026-06-12 07:00,sign-in attempt
+WKS-1234,alert,2026-06-10 12:00,security alert raised
+WKS-1402,login,2026-06-08 17:00,sign-in attempt
+WKS-1402,patch,2026-06-15 09:00,update applied
+WKS-1402,login,2026-06-14 14:00,sign-in attempt
+DSK-1331,patch,2026-06-07 14:00,update applied
+DSK-1370,patch,2026-06-19 00:00,update applied
+WKS-1169,patch,2026-06-15 15:00,update applied
+WKS-1169,login,2026-06-12 06:00,sign-in attempt
+WKS-1169,login,2026-06-07 06:00,sign-in attempt
+DSK-1423,login,2026-06-18 09:00,sign-in attempt
+DSK-1423,patch,2026-06-05 21:00,update applied
+DSK-1423,login,2026-06-08 20:00,sign-in attempt
+DSK-1270,alert,2026-06-07 06:00,security alert raised
+DSK-1340,patch,2026-06-17 08:00,update applied
+DSK-1340,login,2026-06-17 16:00,sign-in attempt
+DSK-1340,login,2026-06-11 21:00,sign-in attempt
+DSK-1340,login,2026-06-13 02:00,sign-in attempt
+DSK-1358,alert,2026-06-12 07:00,security alert raised
+DSK-1358,alert,2026-06-08 13:00,security alert raised
+DSK-1358,alert,2026-06-13 22:00,security alert raised
+DSK-1358,patch,2026-06-14 17:00,update applied
+LAP-1224,alert,2026-06-12 09:00,security alert raised
+LAP-1224,alert,2026-06-04 22:00,security alert raised
+LAP-1224,alert,2026-06-09 23:00,security alert raised
+WKS-1085,login,2026-06-12 15:00,sign-in attempt
+WKS-1085,login,2026-06-12 10:00,sign-in attempt
+DSK-1064,alert,2026-06-05 01:00,security alert raised
+DSK-1064,alert,2026-06-10 22:00,security alert raised
+WKS-1041,alert,2026-06-17 00:00,security alert raised
+WKS-1041,patch,2026-06-15 04:00,update applied
+WKS-1041,login,2026-06-10 14:00,sign-in attempt
+LAP-1399,patch,2026-06-16 09:00,update applied
+LAP-1399,patch,2026-06-16 10:00,update applied
+LAP-1399,alert,2026-06-18 21:00,security alert raised
+LAP-1399,patch,2026-06-06 04:00,update applied
+WKS-1163,patch,2026-06-18 02:00,update applied
+DSK-1448,alert,2026-06-06 04:00,security alert raised
+DSK-1448,alert,2026-06-11 16:00,security alert raised
+DSK-1448,login,2026-06-06 14:00,sign-in attempt
+WKS-1302,patch,2026-06-05 12:00,update applied
+WKS-1302,alert,2026-06-10 05:00,security alert raised
+LAP-1137,alert,2026-06-10 05:00,security alert raised
+LAP-1137,patch,2026-06-17 14:00,update applied
+LAP-1137,patch,2026-06-04 13:00,update applied
+DSK-1188,patch,2026-06-10 10:00,update applied
+DSK-1188,patch,2026-06-10 05:00,update applied
+LAP-1372,alert,2026-06-16 03:00,security alert raised
+DSK-1445,alert,2026-06-13 00:00,security alert raised
+WKS-1344,alert,2026-06-14 21:00,security alert raised
+LAP-1309,alert,2026-06-18 12:00,security alert raised
+LAP-1309,login,2026-06-12 10:00,sign-in attempt
+WKS-1036,login,2026-06-04 05:00,sign-in attempt
+WKS-1036,patch,2026-06-10 18:00,update applied
+DSK-1282,login,2026-06-15 07:00,sign-in attempt
+LAP-1339,login,2026-06-17 19:00,sign-in attempt
+LAP-1339,patch,2026-06-14 03:00,update applied
+LAP-1339,patch,2026-06-14 08:00,update applied
+LAP-1058,patch,2026-06-13 23:00,update applied
+WKS-1152,login,2026-06-05 21:00,sign-in attempt
+WKS-1152,login,2026-06-05 15:00,sign-in attempt
+WKS-1152,alert,2026-06-17 02:00,security alert raised
+LAP-1459,patch,2026-06-10 00:00,update applied
+LAP-1459,alert,2026-06-05 16:00,security alert raised
+LAP-1398,login,2026-06-05 00:00,sign-in attempt
+LAP-1398,login,2026-06-04 18:00,sign-in attempt
+LAP-1398,patch,2026-06-05 05:00,update applied
+LAP-1398,alert,2026-06-11 18:00,security alert raised
+WKS-1373,patch,2026-06-18 16:00,update applied
+WKS-1373,login,2026-06-11 02:00,sign-in attempt
+WKS-1373,login,2026-06-15 14:00,sign-in attempt
+LAP-1185,patch,2026-06-12 12:00,update applied
+LAP-1185,alert,2026-06-07 05:00,security alert raised
+DSK-1366,login,2026-06-05 15:00,sign-in attempt
+DSK-1366,patch,2026-06-14 11:00,update applied
+DSK-1366,login,2026-06-08 05:00,sign-in attempt
+DSK-1366,login,2026-06-18 10:00,sign-in attempt
+LAP-1473,patch,2026-06-15 18:00,update applied
+LAP-1473,patch,2026-06-12 21:00,update applied
+LAP-1473,alert,2026-06-16 01:00,security alert raised
+LAP-1473,alert,2026-06-08 06:00,security alert raised
+WKS-1021,patch,2026-06-15 19:00,update applied
+WKS-1021,login,2026-06-15 22:00,sign-in attempt
+WKS-1021,login,2026-06-12 01:00,sign-in attempt
+WKS-1242,alert,2026-06-18 10:00,security alert raised
+WKS-1212,alert,2026-06-16 01:00,security alert raised
+WKS-1212,alert,2026-06-15 15:00,security alert raised
+WKS-1212,login,2026-06-12 23:00,sign-in attempt
+DSK-1308,patch,2026-06-12 13:00,update applied
+DSK-1042,alert,2026-06-05 02:00,security alert raised
+DSK-1042,alert,2026-06-16 04:00,security alert raised
+WKS-1183,alert,2026-06-15 10:00,security alert raised
+WKS-1183,login,2026-06-18 16:00,sign-in attempt
+WKS-1183,patch,2026-06-18 00:00,update applied
+DSK-1458,login,2026-06-09 03:00,sign-in attempt
+DSK-1458,login,2026-06-05 10:00,sign-in attempt
+DSK-1458,patch,2026-06-10 06:00,update applied
+DSK-1330,alert,2026-06-06 00:00,security alert raised
+DSK-1330,alert,2026-06-14 02:00,security alert raised
+WKS-1044,alert,2026-06-12 02:00,security alert raised
+DSK-1420,patch,2026-06-09 22:00,update applied
+DSK-1420,alert,2026-06-14 20:00,security alert raised
+DSK-1420,login,2026-06-04 13:00,sign-in attempt
+DSK-1420,patch,2026-06-11 11:00,update applied
+DSK-1374,alert,2026-06-18 01:00,security alert raised
+DSK-1464,login,2026-06-08 20:00,sign-in attempt
+DSK-1464,patch,2026-06-11 16:00,update applied
+DSK-1464,alert,2026-06-04 01:00,security alert raised
+DSK-1464,patch,2026-06-06 12:00,update applied
+DSK-1293,alert,2026-06-12 15:00,security alert raised
+DSK-1293,login,2026-06-10 09:00,sign-in attempt
+DSK-1293,alert,2026-06-07 01:00,security alert raised
+DSK-1293,login,2026-06-09 01:00,sign-in attempt
+WKS-1157,alert,2026-06-05 06:00,security alert raised
+WKS-1157,login,2026-06-18 00:00,sign-in attempt
+WKS-1157,login,2026-06-14 09:00,sign-in attempt
+WKS-1157,patch,2026-06-08 07:00,update applied
+LAP-4821,login,2026-06-19 00:00,failed sign-in from unrecognized location
+LAP-4821,login,2026-06-18 23:59,failed sign-in from unrecognized location
+LAP-4821,login,2026-06-18 23:58,failed sign-in from unrecognized location
+LAP-4821,login,2026-06-18 23:57,failed sign-in from unrecognized location
+LAP-4821,login,2026-06-18 23:56,failed sign-in from unrecognized location
+LAP-4821,login,2026-06-18 23:55,failed sign-in from unrecognized location
+LAP-4821,login,2026-06-18 23:54,failed sign-in from unrecognized location
+LAP-4821,login,2026-06-18 23:53,failed sign-in from unrecognized location
+LAP-4821,login,2026-06-18 23:52,failed sign-in from unrecognized location
+LAP-4821,login,2026-06-18 23:51,failed sign-in from unrecognized location
+LAP-4821,login,2026-06-18 23:50,failed sign-in from unrecognized location
+LAP-4821,login,2026-06-18 23:49,failed sign-in from unrecognized location
+LAP-4821,login,2026-06-18 23:48,failed sign-in from unrecognized location
+LAP-4821,login,2026-06-18 23:47,failed sign-in from unrecognized location

@@ -1,0 +1,58 @@
+{
+  "REC-001": [
+    {
+      "factor": "outdated security updates",
+      "weight": "major"
+    },
+    {
+      "factor": "repeated failed sign-ins",
+      "weight": "moderate"
+    },
+    {
+      "factor": "contact with a flagged address",
+      "weight": "minor"
+    }
+  ],
+  "REC-002": [
+    {
+      "factor": "a known security weakness on many devices",
+      "weight": "major"
+    }
+  ],
+  "REC-003": [
+    {
+      "factor": "unusual internal traffic",
+      "weight": "major"
+    }
+  ],
+  "REC-004": [
+    {
+      "factor": "full administrative rights",
+      "weight": "major"
+    }
+  ],
+  "REC-005": [
+    {
+      "factor": "appearance in a credential leak",
+      "weight": "major"
+    }
+  ],
+  "REC-006": [
+    {
+      "factor": "devices without encryption",
+      "weight": "major"
+    }
+  ],
+  "REC-007": [
+    {
+      "factor": "ransomware-like file activity",
+      "weight": "major"
+    }
+  ],
+  "REC-008": [
+    {
+      "factor": "employee left 12 days ago",
+      "weight": "major"
+    }
+  ]
+}
