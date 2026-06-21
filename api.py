@@ -25,6 +25,7 @@ from pydantic import BaseModel
 
 from src import config
 from src.fleet import fleet_analytics
+from src.auth import router as auth_router
 
 app = FastAPI(title="Trust-AI Console API", version="2.0.0")
 
@@ -35,6 +36,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Include auth routes
+app.include_router(auth_router)
+
 
 # In-memory session state, loaded from the generated JSON at import time.
 STATE = {

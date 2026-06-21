@@ -6,6 +6,9 @@ import {
   getAutonomy, setAutonomy as setAutonomyApi,
   generateIncident,
 } from './api'
+import { useAuth } from './contexts/AuthContext'
+import LoginPage from './components/LoginPage'
+import SignupPage from './components/SignupPage'
 import Sidebar from './components/Sidebar'
 import Dashboard from './components/Dashboard'
 import DeviceExplorer from './components/DeviceExplorer'
@@ -21,6 +24,39 @@ import './timeline.css'
 const FETCH_FAILED = Symbol('FETCH_FAILED')
 
 export default function App() {
+  const { user, loading: authLoading, logout } = useAuth()
+
+  // Auth view (login vs signup)
+  const [authView, setAuthView] = useState('login')
+
+  // ── Show auth loading screen while checking token ──
+  if (authLoading) {
+    return (
+      <div className="auth-loading">
+        <div className="auth-loading-logo">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <span style={{ color: 'var(--text-muted)', fontSize: '14px' }}>Loading Trust-AI Console…</span>
+      </div>
+    )
+  }
+
+  // ── Show login/signup when not authenticated ──
+  if (!user) {
+    if (authView === 'signup') {
+      return <SignupPage onSwitchToLogin={() => setAuthView('login')} />
+    }
+    return <LoginPage onSwitchToSignup={() => setAuthView('signup')} />
+  }
+
+  // ── Authenticated: show the main app ──
+  return <AuthenticatedApp user={user} onLogout={logout} />
+}
+
+// Separated to avoid re-running auth hooks when dashboard state changes
+function AuthenticatedApp({ user, onLogout }) {
   // Navigation
   const [view, setView] = useState('dashboard')
   const [activeRecId, setActiveRecId] = useState(null)
@@ -161,13 +197,25 @@ export default function App() {
 
   return (
     <div className="app-layout">
-      <Sidebar view={view} onNavigate={setView} pendingCount={recs.length} />
+      <Sidebar view={view} onNavigate={setView} pendingCount={recs.length} user={user} onLogout={onLogout} />
 
       <div className="main-content">
         {/* Top Bar */}
         <header className="topbar">
           <h1 className="topbar-title">{viewTitles[view] || 'Trust-AI Console'}</h1>
           <div className="topbar-actions">
+            {/* User info */}
+            <div className="topbar-user">
+              <span className="topbar-user-name">{user?.name || user?.email || 'Admin'}</span>
+              <div className="user-avatar" title={user?.email || ''}>
+                {user?.picture ? (
+                  <img src={user.picture} alt={user.name} referrerPolicy="no-referrer" />
+                ) : (
+                  (user?.name || 'A').charAt(0).toUpperCase()
+                )}
+              </div>
+            </div>
+
             <div className="autonomy-dial" style={{ display: 'flex', alignItems: 'center' }}>
               <span className="info-icon" style={{ marginRight: 12 }}>
                 ?
