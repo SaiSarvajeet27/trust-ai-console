@@ -31,10 +31,14 @@ export default function Dashboard({ kpis, analytics, recs, onOpenDetail, onDecis
           <div className="kpi-icon kpi-icon--amber">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
           </div>
-          <div className="kpi-label">Active Alerts</div>
+          <div className="kpi-label">Active Alerts
+            <span className="info-icon">?
+              <span className="info-tooltip"><strong>Active Alerts</strong><br/>Devices that are not healthy (at-risk + critical). Matches the Fleet Health donut: healthy + active alerts = fleet size.</span>
+            </span>
+          </div>
           <div className="kpi-value">{kpis?.active_alerts || 0}</div>
           <div className="kpi-change kpi-change--down">
-            {kpis?.critical_alerts || 0} critical
+            {kpis?.at_risk_alerts ?? 0} at risk · {kpis?.critical_alerts ?? 0} critical
           </div>
         </div>
 
@@ -42,11 +46,15 @@ export default function Dashboard({ kpis, analytics, recs, onOpenDetail, onDecis
           <div className="kpi-icon kpi-icon--emerald">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
-          <div className="kpi-label">Trust Score</div>
+          <div className="kpi-label">Trust Score
+            <span className="info-icon">?
+              <span className="info-tooltip"><strong>Trust Score</strong><br/>The share of past AI recommendations you approved rather than overrode. A higher score means the agent's calls are matching your judgement.</span>
+            </span>
+          </div>
           <div className="kpi-value">{kpis?.trust_score || 0}<span style={{ fontSize: '18px', color: 'var(--text-muted)' }}>%</span></div>
           <div className="kpi-change kpi-change--up">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M7 14l5-5 5 5z"/></svg>
-            Based on decision outcomes
+            Approval rate across your decisions
           </div>
         </div>
 
@@ -249,6 +257,16 @@ export default function Dashboard({ kpis, analytics, recs, onOpenDetail, onDecis
                 <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Overdue</div>
               </div>
             </div>
+            {(() => {
+              const ps = analytics.patch_status || {}; const tot = (ps.current||0)+(ps.aging||0)+(ps.overdue||0) || 1;
+              const seg = [['current','var(--accent-emerald)'],['aging','var(--accent-amber)'],['overdue','var(--accent-rose)']];
+              return (
+                <div style={{ display: 'flex', height: 6, borderRadius: 4, overflow: 'hidden', marginTop: 12, background: 'var(--bg-elevated)' }}
+                  title={`${ps.current||0} current · ${ps.aging||0} aging · ${ps.overdue||0} overdue`}>
+                  {seg.map(([k,c]) => (<div key={k} style={{ width: `${((ps[k]||0)/tot)*100}%`, background: c }} />))}
+                </div>
+              );
+            })()}
           </div>
 
           <div className="glass-card">

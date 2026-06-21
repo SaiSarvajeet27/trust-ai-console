@@ -378,13 +378,16 @@ def dashboard_kpis():
         h = d.get("health_status", "healthy")
         health[h] = health.get(h, 0) + 1
 
-    raw_active_alerts = health["at_risk"] + (health["critical"] * 2)
-    raw_critical_alerts = health["critical"]
+    # Active alerts = devices that are not healthy. This reconciles exactly with
+    # the Fleet Health donut (healthy + active_alerts == fleet_size).
+    active_alerts = health["at_risk"] + health["critical"]
+    critical_alerts = health["critical"]
 
     return {
         "fleet_size": len(devices),
-        "active_alerts": raw_active_alerts if raw_active_alerts > 0 else 344,
-        "critical_alerts": raw_critical_alerts if raw_critical_alerts > 0 else 98,
+        "active_alerts": active_alerts,
+        "critical_alerts": critical_alerts,
+        "at_risk_alerts": health["at_risk"],
         "pending_recommendations": pending,
         "trust_score": trust_score,
         "health": health,

@@ -235,12 +235,12 @@ export default function App() {
               <div style={{ marginBottom: 24 }}>
                 <h3 style={{ fontSize: '14px', fontWeight: 600, marginBottom: 8 }}>Interface Theme</h3>
                 <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: 16 }}>
-                  Choose your preferred color theme. Dark mode is recommended for prolonged use in operations centers.
+                  Choose your preferred color theme. Dark mode is easier on the eyes for prolonged use in operations centers.
                 </p>
                 <div style={{ display: 'flex', gap: 16 }}>
                   <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
                     <input type="radio" name="theme" value="dark" checked={theme === 'dark'} onChange={() => setTheme('dark')} />
-                    Premium Dark Mode
+                    Dark Mode
                   </label>
                   <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
                     <input type="radio" name="theme" value="light" checked={theme === 'light'} onChange={() => setTheme('light')} />
